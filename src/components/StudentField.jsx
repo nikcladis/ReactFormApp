@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-const StudentField = ({ label, type }) => {
+const StudentField = ({ label, type, value, onChange }) => {
   return (
     <div>
       <label>{label}: </label>
-      <input type={type} />
+      <input type={type} value={value} onChange={onChange} />
     </div>
   );
 };
