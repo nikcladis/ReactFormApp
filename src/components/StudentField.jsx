@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const StudentField = ({ label, type, value, onChange, isMissing }) => {
   return (
     <div>

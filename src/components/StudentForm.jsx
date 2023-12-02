@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import { useReducer } from "react";
 import StudentField from "./StudentField";
 import { studentFormReducer, initialState } from "./studentFormReducer";
 
