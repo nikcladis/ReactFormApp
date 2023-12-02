@@ -1,43 +1,17 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import StudentField from "./StudentField";
-
-const initialState = [
-  {
-    name: "firstName",
-    label: "First Name",
-    type: "text",
-    value: "",
-    isMissing: false,
-  },
-  {
-    name: "lastName",
-    label: "Last Name",
-    type: "text",
-    value: "",
-    isMissing: false,
-  },
-  { name: "email", label: "Email", type: "email", value: "", isMissing: false },
-];
+import { studentFormReducer, initialState } from "./studentFormReducer";
 
 const StudentForm = () => {
-  const [state, setState] = useState(initialState);
+  const [state, dispatch] = useReducer(studentFormReducer, initialState);
 
   const handleChange = (fieldName, value) => {
-    setState((prevState) =>
-      prevState.map((field) =>
-        field.name === fieldName ? { ...field, value, isMissing: false } : field
-      )
-    );
+    dispatch({ type: "CHANGE", fieldName, value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState((prevState) =>
-      prevState.map((field) => ({
-        ...field,
-        isMissing: field.value === "",
-      }))
-    );
+    dispatch({ type: "SUBMIT" });
   };
 
   return (
