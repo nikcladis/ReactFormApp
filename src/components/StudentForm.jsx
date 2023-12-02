@@ -1,18 +1,8 @@
-import { useReducer } from "react";
 import StudentField from "./StudentField";
-import { studentFormReducer, initialState } from "./studentFormReducer";
+import { useStudentFormContext } from "./StudentFormContext";
 
 const StudentForm = () => {
-  const [state, dispatch] = useReducer(studentFormReducer, initialState);
-
-  const handleChange = (fieldName, value) => {
-    dispatch({ type: "CHANGE", fieldName, value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch({ type: "SUBMIT" });
-  };
+  const { state, handleChange, handleSubmit } = useStudentFormContext();
 
   return (
     <form onSubmit={handleSubmit}>
