@@ -15,7 +15,6 @@ const StudentInfo = () => {
 
   return (
     <div>
-      <h2>Student Information</h2>
       {validState.map((field) => (
         <p key={field.name}>
           {field.label}: {field.value}

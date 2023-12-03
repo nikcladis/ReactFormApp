@@ -6,9 +6,11 @@ const App = () => {
   return (
     <StudentFormProvider>
       <div>
-        <h1>Student Data Form</h1>
-        <StudentForm />
-        <StudentInfo />
+        <h1 className="bg-blue-500 text-white p-4">Student Data Form</h1>
+        <div>
+          <StudentForm />
+          <StudentInfo />
+        </div>
       </div>
     </StudentFormProvider>
   );
