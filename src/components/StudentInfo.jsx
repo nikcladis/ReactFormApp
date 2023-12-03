@@ -3,7 +3,7 @@ import { useStudentFormContext } from "./StudentFormContext";
 const StudentInfo = () => {
   const { validState } = useStudentFormContext();
 
-  if (!validState.length) {
+  if (!validState) {
     return (
       <div className="flex flex-col gap-4">
         <p className="py-1">First Name: </p>

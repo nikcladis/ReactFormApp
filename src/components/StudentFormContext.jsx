@@ -9,7 +9,7 @@ export const useStudentFormContext = () => {
 
 export const StudentFormProvider = ({ children }) => {
   const [state, dispatch] = useReducer(studentFormReducer, initialState);
-  const [validState, setValidState] = useState([]);
+  const [validState, setValidState] = useState("");
 
   const handleChange = (fieldName, value) => {
     dispatch({ type: "CHANGE", fieldName, value });
@@ -19,8 +19,8 @@ export const StudentFormProvider = ({ children }) => {
     e.preventDefault();
     dispatch({ type: "SUBMIT" });
 
-    const isFormValid = state.every((field) => field.value !== "");
-    isFormValid ? setValidState([...state]) : setValidState([]);
+    const isFormValid = state.every((field) => field.value?.trim() !== "");
+    isFormValid ? setValidState([...state]) : setValidState("");
   };
 
   const contextValue = {
