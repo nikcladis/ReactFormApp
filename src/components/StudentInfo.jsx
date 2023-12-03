@@ -3,20 +3,20 @@ import { useStudentFormContext } from "./StudentFormContext";
 const StudentInfo = () => {
   const { validState } = useStudentFormContext();
 
-  if (!validState) {
+  if (!validState.length) {
     return (
-      <div>
-        <p>First Name: </p>
-        <p>Last Name: </p>
-        <p>Email: </p>
+      <div className="flex flex-col gap-4">
+        <p className="py-1">First Name: </p>
+        <p className="py-1">Last Name: </p>
+        <p className="py-1">Email: </p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {validState.map((field) => (
-        <p key={field.name}>
+        <p className="py-1" key={field.name}>
           {field.label}: {field.value}
         </p>
       ))}
