@@ -1,5 +1,4 @@
 # Building a Student Form with React: A Step-by-Step Guide.
-###### By Nikolaos Kladis.
 
 ### 1. Introduction
 
@@ -119,7 +118,7 @@ const StudentForm  = () => {
 };
 ```
 
-#### 4.3 Handlers
+#### 4.3 Handle Change
 
 After deciding how to structure our state, we need to start implementing the **handling** logic of our state. Since we have an object state, we need to be careful with object mutations. To update the state of an object, we create a new state from copying the previous object values and editing the new values. This is called **object immutability**. It is generally suggested to never change any data directly.
 
@@ -358,3 +357,111 @@ const  StudentForm  = () => {
 ```
 When the `handleChange` or the `handleSubmit` functions are used, the `dispatch` calls the reducer function and the code runs equally as before.
 ### 5. StudentInfo
+There is not much going for the `<StudentInfo />` component, we just have to output the data. But how are we gonna get the state's data outside the component? We can do this in two ways, either lift the state up, or use **content**. 
+
+#### 5.1 Context
+
+To manage state and share data between components without prop drilling, we can use the Context API. We'll create a context that holds the state and pass it to our components:
+
+```jsx
+// StudentFormContext.jsx
+import { createContext, useContext } from 'react';
+
+const StudentContext = createContext();
+
+export const useStudentFormContext = () => {
+  return useContext(StudentContext);
+};
+
+export const StudentFormProvider = ({ children }) => {
+ 
+  const contextValue = {};
+
+  return (
+    <StudentFormContext.Provider value={contextValue}>
+      {children}
+    </StudentFormContext.Provider>
+  );
+};
+```
+```jsx
+const  App  = () => {
+	return (
+		<StudentFormProvider>
+			<div>
+				<h1>Student Data Form</h1>
+				<StudentForm  />
+				<StudentInfo  />
+			</div>
+		</StudentFormProvider>
+	);
+};
+```
+#### 5.2 Reducer & Context
+
+To further centralize our state and handlers, we can combine our reducer and context. This provides a clean and efficient way to manage state changes globally our components:
+
+```jsx 
+// StudentFormContext.jsx
+import { createContext, useContext, useReducer } from 'react';
+import { studentFormReducer, initialState } from './studentFormReducer';
+
+const StudentContext = createContext();
+
+export const useStudentContext = () => {
+  return useContext(StudentContext);
+};
+
+export const StudentProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(studentFormReducer, initialState);
+
+  const handleChange  = (fieldName, value) => {
+	dispatch({ type: "CHANGE", fieldName, value });
+  };
+
+  const handleSubmit  = (e) => {
+	e.preventDefault();
+	dispatch({ type: "SUBMIT" });
+  };
+
+  const contextValue = {
+    state,
+    handleChange,
+    handleSubmit,
+  };
+
+  return (
+    <StudentContext.Provider value={contextValue}>
+      {children}
+    </StudentContext.Provider>
+  );
+};
+
+```
+#### 5.3 Consuming Context in Components
+
+Now that we centralized our state, components can now directly dispatch actions to update the shared state. For example, in our `StudentForm` component:
+```jsx
+import { useStudentFormContext } from  "./StudentFormContext";
+
+const  StudentForm  = () => {
+	const { state, handleChange, handleSubmit } =  useStudentFormContext();
+	
+	return (
+		<form  onSubmit={handleSubmit}>
+			{state.map((field) => (
+				<StudentField
+					key={field.name}
+					label={field.label}
+					type={field.type}
+					value={field.value}
+					onChange={(e) =>  handleChange(field.name, e.target.value)}
+					isMissing={field.isMissing}
+					/>
+				))}
+			<button type="submit">Submit</button>
+		</form>
+	);
+};
+```
+As you can see, all of our handling state code is outside of the component. This helps with readability and managing our logic.
