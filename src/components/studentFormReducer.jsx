@@ -4,21 +4,21 @@ export const initialState = [
     label: "First Name",
     type: "text",
     value: "",
-    isMissing: false,
+    error: false,
   },
   {
     name: "lastName",
     label: "Last Name",
     type: "text",
     value: "",
-    isMissing: false,
+    error: false,
   },
   {
     name: "email",
     label: "Email",
     type: "email",
     value: "",
-    isMissing: false,
+    error: false,
   },
 ];
 
@@ -27,14 +27,16 @@ export const studentFormReducer = (state, action) => {
     case "CHANGE":
       return state.map((field) =>
         field.name === action.fieldName
-          ? { ...field, value: action.value, isMissing: false }
+          ? { ...field, value: action.value }
           : field
       );
-    case "SUBMIT":
+    case "SUBMIT": {
       return state.map((field) => ({
         ...field,
-        isMissing: field.value?.trim() === "",
+        value: field.value?.trim(),
+        error: field.value?.trim() === "",
       }));
+    }
     default:
       return state;
   }

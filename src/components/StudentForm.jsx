@@ -13,7 +13,7 @@ const StudentForm = () => {
           type={field.type}
           value={field.value}
           onChange={(e) => handleChange(field.name, e.target.value)}
-          isMissing={field.isMissing}
+          error={field.error}
         />
       ))}
       <button
