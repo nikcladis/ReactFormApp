@@ -3,7 +3,7 @@ import { useStudentFormContext } from "./StudentFormContext";
 const StudentInfo = () => {
   const { submitState } = useStudentFormContext();
 
-  const isFormValid = submitState.every((field) => field.value?.trim() !== "");
+  const isFormValid = submitState.every((field) => field.value);
 
   return (
     <div className="flex flex-col gap-4">

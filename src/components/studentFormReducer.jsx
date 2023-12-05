@@ -33,8 +33,8 @@ export const studentFormReducer = (state, action) => {
     case "SUBMIT":
       return state.map((field) => ({
         ...field,
-        value: field.value?.trim(),
-        error: field.value?.trim() === "",
+        value: (field.value ?? "").trim(),
+        error: !(field.value ?? "").trim(),
       }));
     default:
       return state;
