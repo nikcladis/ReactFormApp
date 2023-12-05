@@ -1,13 +1,11 @@
 import { useReducer, useState } from "react";
 import StudentFormContext from "../contexts/StudentFormContext";
-import {
-  studentFormReducer,
-  initialState,
-} from "../components/studentFormReducer";
+import initialFormState from "../reducers/initialFormState";
+import studentFormReducer from "../reducers/studentFormReducer";
 
 const StudentFormProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(studentFormReducer, initialState);
-  const [submitState, setSubmitState] = useState(initialState);
+  const [state, dispatch] = useReducer(studentFormReducer, initialFormState);
+  const [submitState, setSubmitState] = useState(initialFormState);
 
   const handleChange = (fieldName, value) => {
     dispatch({ type: "CHANGE", fieldName, value });

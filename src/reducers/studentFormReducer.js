@@ -1,28 +1,4 @@
-export const initialState = [
-  {
-    name: "firstName",
-    label: "First Name",
-    type: "text",
-    value: "",
-    error: false,
-  },
-  {
-    name: "lastName",
-    label: "Last Name",
-    type: "text",
-    value: "",
-    error: false,
-  },
-  {
-    name: "email",
-    label: "Email",
-    type: "email",
-    value: "",
-    error: false,
-  },
-];
-
-export const studentFormReducer = (state, action) => {
+const studentFormReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
       return state.map((field) =>
@@ -40,3 +16,5 @@ export const studentFormReducer = (state, action) => {
       return state;
   }
 };
+
+export default studentFormReducer;
