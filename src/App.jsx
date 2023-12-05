@@ -1,6 +1,6 @@
 import StudentForm from "./components/StudentForm";
 import StudentInfo from "./components/StudentInfo";
-import { StudentFormProvider } from "./contexts/StudentFormContext";
+import StudentFormProvider from "./contexts/StudentFormProvider";
 
 const App = () => {
   return (
