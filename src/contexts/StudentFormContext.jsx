@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useReducer } from "react";
-import { studentFormReducer, initialState } from "./studentFormReducer";
+import {
+  studentFormReducer,
+  initialState,
+} from "../components/studentFormReducer";
 
 const StudentFormContext = createContext();
 

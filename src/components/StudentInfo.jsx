@@ -1,4 +1,4 @@
-import { useStudentFormContext } from "./StudentFormContext";
+import { useStudentFormContext } from "../contexts/StudentFormContext";
 
 const StudentInfo = () => {
   const { submitState } = useStudentFormContext();

@@ -1,5 +1,5 @@
 import StudentField from "./StudentField";
-import { useStudentFormContext } from "./StudentFormContext";
+import { useStudentFormContext } from "../contexts/StudentFormContext";
 
 const StudentForm = () => {
   const { state, handleChange, handleSubmit } = useStudentFormContext();
