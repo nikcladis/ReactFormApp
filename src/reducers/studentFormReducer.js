@@ -1,12 +1,14 @@
+import { CHANGE, SUBMIT } from './actionTypes';
+
 const studentFormReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE":
+    case CHANGE:
       return state.map((field) =>
         field.name === action.fieldName
           ? { ...field, value: action.value }
           : field
       );
-    case "SUBMIT":
+    case SUBMIT:
       return state.map((field) => ({
         ...field,
         value: (field.value ?? "").trim(),
